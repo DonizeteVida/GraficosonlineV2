@@ -32,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -62,14 +63,22 @@ public class CreateChart extends AppCompatActivity implements OnChartValueSelect
                 }
 
                 List<DataPieChart> dataPieChart = new ArrayList<>();
-                dataPieChart.add(new DataPieChart(d, "Acumulado mês", new String[]{"C4", "C5", "C6", "C7", "C8"}, new String[]{"G4", "G5", "G6", "G7", "G8"}));
-                dataPieChart.add(new DataPieChart(d, "Acumulado mês anterior", new String[]{"C15", "C16", "C17", "C18", "C19"}, new String[]{"E15", "E16", "E17", "E18", "E19"}));
 
+                if(d.size() > 0) {
 
-                RecyclerView recyclerView = findViewById(R.id.recyclerView);
-                recyclerView.setLayoutManager(new LinearLayoutManager(CreateChart.this));
-                recyclerView.setAdapter(new PieChartAdapter(CreateChart.this, dataPieChart, CreateChart.this));
+                    dataPieChart.add(new DataPieChart(d, "Acumulado mês R$", new String[]{"C4", "C5", "C6", "C7", "C8"}, new String[]{"G4", "G5", "G6", "G7", "G8"}));
+                    dataPieChart.add(new DataPieChart(d, "Acumulado mês anterior R$", new String[]{"C15", "C16", "C17", "C18", "C19"}, new String[]{"E15", "E16", "E17", "E18", "E19"}));
+                    dataPieChart.add(new DataPieChart(d, "Acumulado total do ano R$", new String[]{"C26", "C27", "C28", "C29", "C30"}, new String[]{"E26", "E27", "E28", "E29", "E30"}));
 
+                    dataPieChart.add(new DataPieChart(d, "Acumulado mês QTY", new String[]{"C4", "C5", "C6", "C7", "C8"}, new String[]{"F4", "F5", "F6", "F7", "F8"}));
+                    dataPieChart.add(new DataPieChart(d, "Acumulado mês anterior QTY", new String[]{"C15", "C16", "C17", "C18", "C19"}, new String[]{"D15", "D16", "D17", "D18", "D19"}));
+                    dataPieChart.add(new DataPieChart(d, "Acumulado total do ano QTY", new String[]{"C26", "C27", "C28", "C29", "C30"}, new String[]{"D26", "D27", "D28", "D29", "D30"}));
+
+                    RecyclerView recyclerView = findViewById(R.id.recyclerView);
+
+                    recyclerView.setLayoutManager(new LinearLayoutManager(CreateChart.this));
+                    recyclerView.setAdapter(new PieChartAdapter(CreateChart.this, dataPieChart, CreateChart.this));
+                }
 
             }
 
@@ -205,7 +214,8 @@ public class CreateChart extends AppCompatActivity implements OnChartValueSelect
     public void onValueSelected(Entry e, Highlight h) {
         if (e == null)
             return;
-        alert("R$ " + e.getY());
+        DecimalFormat df= new DecimalFormat("#,##0.##");
+        alert("R$: " + df.format(e.getY()));
     }
 
     @Override

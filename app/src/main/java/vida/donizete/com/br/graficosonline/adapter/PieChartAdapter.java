@@ -104,7 +104,7 @@ public class PieChartAdapter extends RecyclerView.Adapter<PieChartAdapter.PieCha
         l.setYEntrySpace(0f);
         l.setYOffset(0f);
 
-        chart.setEntryLabelColor(Color.WHITE);
+        chart.setEntryLabelColor(Color.GRAY); // texto da categoria
         chart.setEntryLabelTextSize(12f);
 
         ArrayList<PieEntry> entries = new ArrayList<>();
@@ -141,6 +141,9 @@ public class PieChartAdapter extends RecyclerView.Adapter<PieChartAdapter.PieCha
         for (int c : ColorTemplate.PASTEL_COLORS)
             colors.add(c);
 
+        for (int c : ColorTemplate.MATERIAL_COLORS)
+            colors.add(c);
+
         colors.add(ColorTemplate.getHoloBlue());
 
         dataSet.setColors(colors);
@@ -148,7 +151,7 @@ public class PieChartAdapter extends RecyclerView.Adapter<PieChartAdapter.PieCha
 
         PieData data = new PieData(dataSet);
         data.setValueTextSize(11f);
-        data.setValueTextColor(Color.WHITE);
+        data.setValueTextColor(Color.BLACK);//texto do centro
         chart.setData(data);
 
         // undo all highlights
