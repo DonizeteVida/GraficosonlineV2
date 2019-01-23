@@ -9,6 +9,7 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
@@ -35,17 +36,17 @@ public class CreateChart {
         chart.getDescription().setEnabled(true);
 
         Description description = new Description();
-        description.setText("Online data from excel archive");
-        description.setTextSize(10f);
+        description.setText(titulo);
+        description.setTextSize(15f);
+        description.setPosition(600f, 180f);
+
         chart.setDescription(description);
 
         chart.setExtraOffsets(5, 10, 5, 5);
 
-        chart.setDragDecelerationFrictionCoef(0.95f);
+        chart.setDragDecelerationFrictionCoef(10f);
 
-        chart.setCenterText(titulo);
-
-        chart.setDrawHoleEnabled(true);
+        chart.setDrawHoleEnabled(false);
         chart.setHoleColor(Color.WHITE);
 
         chart.setTransparentCircleColor(Color.WHITE);
@@ -63,6 +64,7 @@ public class CreateChart {
 
         chart.animateY(1400, Easing.EaseInOutQuad);
 
+
         Legend l = chart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
@@ -73,7 +75,7 @@ public class CreateChart {
         l.setYOffset(0f);
 
         chart.setEntryLabelColor(Color.BLACK); // texto da categoria
-        chart.setEntryLabelTextSize(12f);
+        chart.setEntryLabelTextSize(10f);
 
         ArrayList<PieEntry> entries = new ArrayList<>();
 
@@ -86,6 +88,7 @@ public class CreateChart {
 
         PieDataSet dataSet = new PieDataSet(entries, "Categorias");
 
+        dataSet.setValueFormatter(new PercentFormatter());
         dataSet.setDrawIcons(true);
         dataSet.setSliceSpace(3f);
         dataSet.setIconsOffset(new MPPointF(0, 40));
