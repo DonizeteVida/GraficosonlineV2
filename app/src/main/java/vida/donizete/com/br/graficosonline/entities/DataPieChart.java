@@ -8,12 +8,14 @@ public class DataPieChart {
     private String titulo;
     private String[] categoriasArray;
     private String[] valoresArray;
+    private Boolean[] options;
 
-    public DataPieChart(HashMap<String, Object> data, String titulo, String[] categoriasArray, String[] valoresArray) {
+    public DataPieChart(HashMap<String, Object> data, String titulo, String[] categoriasArray, String[] valoresArray, Boolean[] options) {
         this.data = data;
         this.titulo = titulo;
         this.categoriasArray = categoriasArray;
         this.valoresArray = valoresArray;
+        this.options = options;
     }
 
     public DataPieChart() {
@@ -26,7 +28,6 @@ public class DataPieChart {
     public void setData(HashMap<String, Object> data) {
         this.data = data;
     }
-
 
 
     public String getTitulo() {
@@ -51,5 +52,13 @@ public class DataPieChart {
 
     public void setValoresArray(String[] valoresArray) {
         this.valoresArray = valoresArray;
+    }
+
+    public Boolean[] getOptions() {
+        return options;
+    }
+
+    public void setOptions(Boolean[] options) {
+        this.options = options;
     }
 }

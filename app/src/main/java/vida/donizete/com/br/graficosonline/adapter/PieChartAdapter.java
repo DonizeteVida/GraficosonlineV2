@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
@@ -13,6 +14,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import java.util.List;
 
 import vida.donizete.com.br.graficosonline.R;
+import vida.donizete.com.br.graficosonline._interface.PieChartAdapterInterface;
 import vida.donizete.com.br.graficosonline.create_chart.CreateChart;
 import vida.donizete.com.br.graficosonline.entities.DataPieChart;
 
@@ -27,7 +29,6 @@ public class PieChartAdapter extends RecyclerView.Adapter<PieChartAdapter.PieCha
         this.context = context;
         this.dataPieCharts = dataPieCharts;
         this.onChartValueSelectedListener = onChartValueSelectedListener;
-
         createChart = new CreateChart();
     }
 
@@ -41,8 +42,9 @@ public class PieChartAdapter extends RecyclerView.Adapter<PieChartAdapter.PieCha
     @Override
     public void onBindViewHolder(@NonNull PieChartAdapter.PieChartHolder viewHolder, int i) {
         DataPieChart dataPieChart = dataPieCharts.get(i);
+        PieChart pieChart = viewHolder.pieChart;
 
-        createChart.createPieChart(dataPieChart.getData(), dataPieChart.getTitulo(), dataPieChart.getCategoriasArray(), dataPieChart.getValoresArray(), viewHolder.pieChart, onChartValueSelectedListener);
+        createChart.createPieChart(dataPieChart.getData(), dataPieChart.getTitulo(), dataPieChart.getCategoriasArray(), dataPieChart.getValoresArray(), pieChart, onChartValueSelectedListener, dataPieChart.getOptions());
     }
 
     @Override

@@ -29,9 +29,9 @@ public class CreateChart {
         convertData = ConvertData.getInstance();
     }
 
-    public void createPieChart(HashMap<String, Object> dados, String titulo, String[] categoriasArray, String[] valoresArray, PieChart chart, OnChartValueSelectedListener onChartValueSelectedListener) {
+    public void createPieChart(HashMap<String, Object> dados, String titulo, String[] categoriasArray, String[] valoresArray, PieChart chart, OnChartValueSelectedListener onChartValueSelectedListener, Boolean[] options) {
 
-        chart.setUsePercentValues(true);
+        chart.setUsePercentValues(options[0]);
 
         chart.getDescription().setEnabled(true);
 
@@ -44,7 +44,7 @@ public class CreateChart {
 
         chart.setExtraOffsets(5, 10, 5, 5);
 
-        chart.setDragDecelerationFrictionCoef(10f);
+        chart.setDragDecelerationFrictionCoef(0.98f);
 
         chart.setDrawHoleEnabled(false);
         chart.setHoleColor(Color.WHITE);
@@ -55,15 +55,14 @@ public class CreateChart {
         chart.setHoleRadius(58f);
         chart.setTransparentCircleRadius(61f);
 
-        chart.setDrawCenterText(true);
+        chart.setDrawCenterText(false);
         chart.setOnChartValueSelectedListener(onChartValueSelectedListener);
 
         chart.setRotationAngle(0);
         chart.setRotationEnabled(true);
         chart.setHighlightPerTapEnabled(true);
 
-        chart.animateY(1400, Easing.EaseInOutQuad);
-
+        chart.animateY(1400, Easing.EaseOutSine);
 
         Legend l = chart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
@@ -71,11 +70,12 @@ public class CreateChart {
         l.setOrientation(Legend.LegendOrientation.VERTICAL);
         l.setDrawInside(false);
         l.setXEntrySpace(7f);
-        l.setYEntrySpace(0f);
-        l.setYOffset(0f);
+        l.setYEntrySpace(5f);
+        l.setYOffset(10f);
 
         chart.setEntryLabelColor(Color.BLACK); // texto da categoria
-        chart.setEntryLabelTextSize(10f);
+        chart.setEntryLabelTextSize(10f); // tamanho do texto
+        chart.setDrawEntryLabels(true);   // se é pra desenhar ou nao
 
         ArrayList<PieEntry> entries = new ArrayList<>();
 
@@ -88,16 +88,23 @@ public class CreateChart {
 
         PieDataSet dataSet = new PieDataSet(entries, "Categorias");
 
-        dataSet.setValueFormatter(new PercentFormatter());
-        dataSet.setDrawIcons(true);
-        dataSet.setSliceSpace(3f);
-        dataSet.setIconsOffset(new MPPointF(0, 40));
-        dataSet.setSelectionShift(5f);
+        if (options[0]) {
+            dataSet.setValueFormatter(new PercentFormatter()); // formatador dos valores no chart
+        } else {
+            dataSet.setValueFormatter(null);
+        }
+
+        dataSet.setDrawIcons(true); // não seu
+        dataSet.setSliceSpace(3f); // espaço entre as cores
+        dataSet.setIconsOffset(new MPPointF(0, 40)); // nao sei
+        dataSet.setSelectionShift(15f); // tamanho do grafico. numero maior igual a grafico menor
+        dataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE); // posição das legendas
+        dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);  // posição dos valores
+        dataSet.setValueLineWidth(1f); // tamanho da linha
 
         ArrayList<Integer> colors = new ArrayList<>();
 
         int random = new Random().nextInt(6);
-
 
         switch (random) {
             case 0:
@@ -134,8 +141,8 @@ public class CreateChart {
         dataSet.setColors(colors);
 
         PieData data = new PieData(dataSet);
-        data.setValueTextSize(20f);
-        data.setValueTextColor(Color.BLACK);//texto do centro
+        data.setValueTextSize(20f); // texto das porcentagens
+        data.setValueTextColor(Color.BLACK);//cor dos textos das porcentagens
         chart.setData(data);
 
         // undo all highlights
