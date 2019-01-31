@@ -4,9 +4,14 @@
         <item android:title="Principal">
             <menu>
                 <item
-                    android:id="@+id/createPieChartActivity"
+                android:id="@+id/createPieChartActivity"
+                android:icon="@drawable/pie_icon"
+                android:title="Pie chart"></item>
+
+                <item
+                    android:id="@+id/newActivity"
                     android:icon="@drawable/pie_icon"
-                    android:title="Pie chart"></item>
+                    android:title="Pie chart"/>
             </menu>
         </item>
 

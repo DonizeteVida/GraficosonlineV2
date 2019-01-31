@@ -3,8 +3,10 @@ package vida.donizete.com.br.graficosonline.activity;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -43,6 +45,7 @@ public class CreatePieChartActivity extends BaseActivity implements OnChartValue
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemViewCacheSize(0);
+
         options = new Boolean[]{true};
         setUpToolbar();
         getValues();
@@ -124,6 +127,7 @@ public class CreatePieChartActivity extends BaseActivity implements OnChartValue
     }
 
     private void populatePieChart(List<DataPieChart> dataPieChart) {
-        recyclerView.setAdapter(new PieChartAdapter(CreatePieChartActivity.this, dataPieChart, CreatePieChartActivity.this));
+        PieChartAdapter pieChartAdapter = new PieChartAdapter(CreatePieChartActivity.this, dataPieChart, CreatePieChartActivity.this);
+        recyclerView.setAdapter(pieChartAdapter);
     }
 }

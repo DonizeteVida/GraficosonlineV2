@@ -72,18 +72,22 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                 intent = new Intent(BaseActivity.this, CreatePieChartActivity.class);
                 startActivity(intent);
                 break;
+
+            case R.id.newActivity:
+                intent = new Intent(BaseActivity.this, Main2Activity.class);
+                startActivity(intent);
+                break;
         }
     }
 
     @Override
     public void onBackPressed() {
-        if (drawerLayout != null) {
+        if (drawerLayout != null)
             if (drawerLayout.isDrawerOpen(GravityCompat.START))
                 drawerLayout.closeDrawers();
+
             else
                 super.onBackPressed();
-        } else
-            super.onBackPressed();
 
     }
 }
